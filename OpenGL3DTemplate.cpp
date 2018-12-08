@@ -388,7 +388,7 @@ void main(int argc, char** argv) {
 	glutInit(&argc, argv);
 
 	glutInitWindowSize(1500, 1000);
-	glutInitWindowPosition(50, 50);
+	glutInitWindowPosition(0, 0);
 
 	glutCreateWindow("3D PACMAN");
 	glutDisplayFunc(Display);
