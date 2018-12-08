@@ -1,3 +1,6 @@
+#include "TextureBuilder.h"
+#include "Model_3DS.h"
+#include "GLTexture.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
