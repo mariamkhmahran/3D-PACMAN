@@ -91,6 +91,9 @@ void GLTexture::Use()
 
 void GLTexture::LoadBMP(char *name)
 {
+	wchar_t wtext[40];
+	mbstowcs(wtext, name, strlen(name) + 1);//Plus null
+	LPWSTR _name = wtext;
 	// Create a place to store the texture
 	AUX_RGBImageRec *TextureImage[1];
 
@@ -98,7 +101,7 @@ void GLTexture::LoadBMP(char *name)
 	memset(TextureImage,0,sizeof(void *)*1);
 
 	// Load the bitmap and assign our pointer to it
-	TextureImage[0] = auxDIBImageLoad(name);
+	TextureImage[0] = auxDIBImageLoad(_name);
 
 	// If the texture file was not found, return from the function
 	if(!TextureImage[0]) 
@@ -226,8 +229,11 @@ void GLTexture::LoadTGA(char *name)
 
 void GLTexture::LoadBMPResource(char *name)
 {
+	wchar_t wtext[40];
+	mbstowcs(wtext, name, strlen(name) + 1);//Plus null
+	LPWSTR _name = wtext;
 	// Find the bitmap in the bitmap resources
-	HRSRC hrsrc = FindResource(0, name, RT_BITMAP);
+	HRSRC hrsrc = FindResource(0, _name, RT_BITMAP);
 
 	// If you can't find it then return
 	if (hrsrc==0)
@@ -282,6 +288,13 @@ void GLTexture::LoadBMPResource(char *name)
 
 void GLTexture::LoadTGAResource(char *name)
 {
+	wchar_t wtext[40];
+	mbstowcs(wtext, name, strlen(name) + 1);//Plus null
+	LPWSTR _name = wtext;
+	char* txt = "TGA";
+	wchar_t wtext0[40];
+	mbstowcs(wtext0, txt, strlen(txt) + 1);//Plus null
+	LPWSTR _txt= wtext0;
 	// struct to cast the resource into
 	struct TGAstruct {
 		GLubyte	TGAcompare[12];								// Used to compare TGA header
@@ -297,7 +310,7 @@ void GLTexture::LoadTGAResource(char *name)
 	GLuint		bpp;										// Image color depth in bits per pixel.
 
 	// Find the targa in the "TGA" resources
-	HRSRC hrsrc = FindResource(0, name, "TGA");
+	HRSRC hrsrc = FindResource(0, _name, _txt);
 
 	// If you can't find it then return
 	if (hrsrc==0)
